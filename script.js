@@ -7,7 +7,7 @@
    <head>, so search engines see the same details.
    ============================================================ */
 const CONFIG = {
-  businessName: "J.C Heating and Plumbing",
+  businessName: "James Cowman Heating & Plumbing Limited",   // the logo stays "JC Heating & Plumbing"
   phoneDisplay: "086 150 3653",
   phoneTel: "+353861503653",
   whatsapp: "353861503653",          // TODO: confirm the 086 is on WhatsApp
@@ -19,11 +19,14 @@ const CONFIG = {
   yearsTrading: "[YEARS TRADING]",   // TODO: confirm with client (a number, e.g. "12")
   facebookUrl: "[FACEBOOK URL]",     // TODO: confirm with client (full https:// link)
 
-  // Towns covered, by county. TODO: confirm towns and travel radius.
+  // Areas covered (confirmed by the client). The towns are the main towns in each area,
+  // used for the "Do you cover my area?" checker. Add or remove towns freely.
   areas: {
-    wexford: { label: "Co. Wexford", towns: ["Bunclody", "Enniscorthy", "Ferns", "Camolin", "Kiltealy", "Rathnure"] },
-    carlow:  { label: "Co. Carlow",  towns: ["Clonegal", "Kildavin", "Tullow", "Myshall", "Ballon"] },
-    wicklow: { label: "Co. Wicklow", towns: ["Carnew", "Shillelagh"] }
+    wexford:  { label: "Co. Wexford",  towns: ["Bunclody", "Enniscorthy", "Wexford Town", "Gorey", "New Ross", "Ferns", "Camolin", "Kiltealy", "Rathnure", "Rosslare"] },
+    kilkenny: { label: "Co. Kilkenny", towns: ["Kilkenny City", "Graiguenamanagh", "Thomastown", "Gowran", "Goresbridge", "Callan", "Castlecomer"] },
+    carlow:   { label: "Co. Carlow",   towns: ["Carlow Town", "Tullow", "Bagenalstown", "Borris", "Clonegal", "Kildavin", "Myshall", "Ballon", "Hacketstown"] },
+    wicklow:  { label: "Co. Wicklow",  towns: ["Carnew", "Shillelagh", "Tinahely", "Aughrim", "Arklow", "Baltinglass", "Rathdrum", "Wicklow Town", "Greystones", "Bray"] },
+    dublin:   { label: "South Dublin", towns: ["Shankill", "Dún Laoghaire", "Dalkey", "Killiney", "Blackrock", "Stillorgan", "Dundrum", "Sandyford", "Rathfarnham", "Tallaght"] }
   },
   // Other names people might type, pointing at a town above.
   // Newtownbarry is the old name for Bunclody (see TODO.md).
@@ -596,16 +599,19 @@ const CONFIG = {
   /* ============ AREAS: TOWN CHECKER ============ */
   const AREAS = CONFIG.areas;
   const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/&/g, "and").replace(/[^a-z]/g, "");
-  const COUNTY_WORDS = {
-    wexford: ["wexford", "cowexford", "countywexford", "northwexford"],
+  // what people might type for a whole area rather than a town
+  const AREA_WORDS = {
+    wexford: ["wexford", "cowexford", "countywexford", "northwexford", "southwexford"],
+    kilkenny: ["kilkenny", "cokilkenny", "countykilkenny"],
     carlow: ["carlow", "cocarlow", "countycarlow"],
-    wicklow: ["wicklow", "cowicklow", "countywicklow", "southwicklow"]
+    wicklow: ["wicklow", "cowicklow", "countywicklow", "southwicklow"],
+    dublin: ["dublin", "southdublin", "dublinsouth", "codublin", "countydublin", "southcodublin", "southcountydublin", "dunlaoghairerathdown"]
   };
   const areaTabs = $$(".area-tab");
   const areaChips = $("#areaChips");
   const areaResult = $("#areaResult");
   const areaInput = $("#areaInput");
-  const vennCircles = $$(".venn-c");
+  const hubParts = $$(".hub-node, .hub-pipe");
   const townList = $("#townList");
 
   Object.values(AREAS).forEach((a) => a.towns.forEach((t) => {
@@ -617,7 +623,7 @@ const CONFIG = {
   const showRegion = (key, highlight) => {
     if (!AREAS[key]) return;
     areaTabs.forEach((t) => t.setAttribute("aria-pressed", String(t.dataset.region === key)));
-    vennCircles.forEach((c) => c.classList.toggle("on", c.dataset.region === key));
+    hubParts.forEach((p) => p.classList.toggle("on", p.dataset.region === key));
     areaChips.textContent = "";
     AREAS[key].towns.forEach((t, i) => {
       const li = document.createElement("li");
@@ -628,7 +634,7 @@ const CONFIG = {
     });
   };
   areaTabs.forEach((t) => t.addEventListener("click", () => showRegion(t.dataset.region)));
-  vennCircles.forEach((c) => c.addEventListener("click", () => showRegion(c.dataset.region)));
+  $$(".hub-node").forEach((n) => n.addEventListener("click", () => showRegion(n.dataset.region)));
   showRegion("wexford");
 
   const setAreaResult = (ok, parts) => {
@@ -655,11 +661,15 @@ const CONFIG = {
     const q = norm(raw);
     if (!q) { areaInput.focus(); return; }
 
-    let hit = null;
-    for (const [key, a] of Object.entries(AREAS)) {
-      const town = a.towns.find((t) => norm(t) === q) || (q.length >= 3 && a.towns.find((t) => norm(t).startsWith(q)));
-      if (town) { hit = { key, town }; break; }
-    }
+    // 1. exact town  2. old or other name  3. a whole area ("Kilkenny")  4. start of a town name
+    const findTown = (match) => {
+      for (const [key, a] of Object.entries(AREAS)) {
+        const town = a.towns.find((t) => match(norm(t)));
+        if (town) return { key, town };
+      }
+      return null;
+    };
+    let hit = findTown((t) => t === q);
     let alias = null;
     if (!hit) {
       const aliasName = Object.keys(CONFIG.townAliases).find((n) => norm(n) === q);
@@ -670,9 +680,10 @@ const CONFIG = {
       }
     }
     if (!hit) {
-      const key = Object.keys(COUNTY_WORDS).find((k) => COUNTY_WORDS[k].includes(q));
+      const key = Object.keys(AREA_WORDS).find((k) => AREA_WORDS[k].includes(q));
       if (key) hit = { key, town: null };
     }
+    if (!hit && q.length >= 3) hit = findTown((t) => t.startsWith(q));
 
     if (hit && hit.town) {
       showRegion(hit.key, hit.town);
@@ -682,7 +693,7 @@ const CONFIG = {
       setAreaResult(true, [lead, quoteLink(hit.town)]);
     } else if (hit) {
       showRegion(hit.key);
-      setAreaResult(true, [`We cover towns in ${AREAS[hit.key].label}. Here's the list. Not on it? `, ringLink]);
+      setAreaResult(true, [`We cover ${AREAS[hit.key].label}. Here are the main ${hit.key === "dublin" ? "areas" : "towns"}. Not on the list? `, ringLink]);
     } else {
       setAreaResult(false, ["Not on the list? ", ringLink]);
     }

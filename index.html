@@ -6,7 +6,7 @@
 <!-- PRE-LAUNCH: keeps the site out of Google while it's being built. Remove this line at launch (see TODO.md). -->
 <meta name="robots" content="noindex, nofollow">
 <title>Plumber &amp; Heating Engineer in Bunclody | JC Heating &amp; Plumbing</title>
-<meta name="description" content="Plumber and heating engineer in Bunclody. Boiler service, boiler replacement and heating repairs across Wexford, Carlow and Wicklow. Call 086 150 3653.">
+<meta name="description" content="Plumber and heating engineer in Bunclody. Boiler service and replacement across Wexford, Kilkenny, Carlow, Wicklow and south Dublin. Call 086 150 3653.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IE">
 <meta property="og:title" content="JC Heating &amp; Plumbing | Plumber &amp; Heating Engineer, Bunclody">
@@ -25,11 +25,19 @@
 {
   "@context": "https://schema.org",
   "@type": "Plumber",
-  "name": "J.C Heating and Plumbing",
+  "name": "James Cowman Heating & Plumbing Limited",
+  "legalName": "James Cowman Heating & Plumbing Limited",
   "alternateName": "JC Heating & Plumbing",
   "founder": { "@type": "Person", "name": "James Cowman" },
   "description": "Plumbing contractor and domestic heating contractor based in Bunclody, Co. Wexford.",
   "telephone": "+353861503653",
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "County Wexford" },
+    { "@type": "AdministrativeArea", "name": "County Kilkenny" },
+    { "@type": "AdministrativeArea", "name": "County Carlow" },
+    { "@type": "AdministrativeArea", "name": "County Wicklow" },
+    { "@type": "AdministrativeArea", "name": "South Dublin" }
+  ],
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Mill Road",
@@ -160,7 +168,7 @@
       <a href="https://wa.me/353861503653" data-config-href="whatsapp" target="_blank" rel="noopener" class="btn btn-line btn-big">
         <svg class="ic ic-wa"><use href="#i-wa"/></svg>WhatsApp Us
       </a>
-      <p>Based in Bunclody. Covering North Wexford, Carlow and Wicklow.</p>
+      <p>Based in Bunclody. Covering Wexford, Kilkenny, Carlow, Wicklow and south Dublin.</p>
     </div>
   </div>
 </dialog>
@@ -175,12 +183,11 @@
       <div class="hero-copy">
         <p class="hero-tag hero-in">
           <svg class="ic"><use href="#i-pin"/></svg>
-          <span>Based in Bunclody · Covering North Wexford, Carlow &amp; Wicklow</span>
+          <span>Based in Bunclody · Covering Wexford, Kilkenny, Carlow, Wicklow &amp; South Dublin</span>
         </p>
-        <h1 class="hero-title hero-in" id="heroTitle">
-          Heating that <em>just works</em> every winter.
-          <span class="hero-title-2">Not a boiler you worry about <em>every cold snap.</em></span>
-        </h1>
+        <h1 class="hero-title hero-in" id="heroTitle">Heating that <em>just works</em> every winter.</h1>
+        <!-- TODO: "Guaranteed" is a promise. Confirm with James what he guarantees (see TODO.md). -->
+        <p class="hero-kicker hero-in">Warm house. Zero boiler stress. <span>Guaranteed.</span></p>
         <p class="hero-sub hero-in">
           Boiler replacements and servicing, central heating, heat pumps, underfloor heating,
           bathrooms and leaks. Straight answers, and a fixed price before any work starts.
@@ -881,50 +888,61 @@
   </section>
 
   <!-- ============ 15. AREAS WE COVER ============ -->
-  <!-- TODO: confirm towns and travel radius (towns live in CONFIG.areas in script.js) -->
+  <!-- Areas confirmed by the client: Wexford, Kilkenny, Carlow, Wicklow and south Dublin.
+       The towns listed under each are the main towns there (CONFIG.areas in script.js). See TODO.md. -->
   <section class="areas section" id="areas" aria-labelledby="areasHeading">
     <div class="container areas-grid">
       <div class="areas-copy">
         <p class="eyebrow" data-reveal>Areas we cover</p>
         <h2 class="section-title" id="areasHeading" data-reveal>Do you cover my area?</h2>
-        <p class="section-lead" data-reveal>We're on Mill Road in Bunclody, where Wexford, Carlow and Wicklow meet. Type your town, or pick a county to see the list.</p>
+        <p class="section-lead" data-reveal>We're on Mill Road in Bunclody, where Wexford, Carlow and Wicklow meet, and we cover Kilkenny and south Dublin too. Type your town, or pick an area to see the list.</p>
 
         <form class="area-search" id="areaSearch" role="search" autocomplete="off" data-reveal>
           <label for="areaInput" class="sr-only">Your town or village</label>
           <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
-          <input type="text" id="areaInput" placeholder="e.g. Tullow or Ferns" list="townList">
+          <input type="text" id="areaInput" placeholder="e.g. Gorey or Tullow" list="townList">
           <button type="submit" class="btn btn-primary btn-small">Check</button>
           <datalist id="townList"></datalist>
         </form>
         <p class="area-result" id="areaResult" aria-live="polite"></p>
 
-        <div class="area-tabs" id="areaTabs" role="group" aria-label="Counties" data-reveal>
+        <div class="area-tabs" id="areaTabs" role="group" aria-label="Areas we cover" data-reveal>
           <button class="area-tab" aria-pressed="true" data-region="wexford"><span class="co">Co. </span>Wexford</button>
+          <button class="area-tab" aria-pressed="false" data-region="kilkenny"><span class="co">Co. </span>Kilkenny</button>
           <button class="area-tab" aria-pressed="false" data-region="carlow"><span class="co">Co. </span>Carlow</button>
           <button class="area-tab" aria-pressed="false" data-region="wicklow"><span class="co">Co. </span>Wicklow</button>
+          <button class="area-tab" aria-pressed="false" data-region="dublin">South Dublin</button>
         </div>
         <ul class="area-chips" id="areaChips" data-reveal>
-          <li>Bunclody</li><li>Enniscorthy</li><li>Ferns</li><li>Camolin</li><li>Kiltealy</li><li>Rathnure</li>
+          <li>Bunclody</li><li>Enniscorthy</li><li>Wexford Town</li><li>Gorey</li><li>New Ross</li><li>Ferns</li><li>Camolin</li><li>Kiltealy</li><li>Rathnure</li><li>Rosslare</li>
         </ul>
         <p class="area-foot" data-reveal>Not on the list? <a href="tel:+353861503653" data-config-href="tel">Give us a ring and ask.</a></p>
       </div>
 
-      <figure class="venn" data-reveal="scale">
-        <svg viewBox="0 0 400 390" role="img" aria-labelledby="vennTitle">
-          <title id="vennTitle">Bunclody sits where Wexford, Carlow and Wicklow meet</title>
-          <circle class="venn-c" data-region="carlow" cx="148" cy="150" r="112"/>
-          <circle class="venn-c" data-region="wicklow" cx="252" cy="150" r="112"/>
-          <circle class="venn-c" data-region="wexford" cx="200" cy="240" r="112"/>
-          <text class="venn-t" x="92" y="112" text-anchor="middle">Carlow</text>
-          <text class="venn-t" x="308" y="112" text-anchor="middle">Wicklow</text>
-          <text class="venn-t" x="200" y="318" text-anchor="middle">Wexford</text>
-          <g class="venn-pin" transform="translate(200 182)">
-            <circle class="venn-pulse" r="16"/>
-            <circle class="venn-dot" r="7"/>
+      <!-- Schematic, not a map: areas sit roughly in their direction from Bunclody -->
+      <figure class="hub" data-reveal="scale">
+        <svg viewBox="0 0 400 370" role="img" aria-labelledby="hubTitle">
+          <title id="hubTitle">From Bunclody we cover Wexford, Kilkenny, Carlow, Wicklow and south Dublin</title>
+          <g class="hub-pipe" data-region="dublin"><path class="hp-outer" d="M200 190 L250 42"/><path class="hp-inner" d="M200 190 L250 42"/></g>
+          <g class="hub-pipe" data-region="wicklow"><path class="hp-outer" d="M200 190 L330 128"/><path class="hp-inner" d="M200 190 L330 128"/></g>
+          <g class="hub-pipe" data-region="wexford"><path class="hp-outer" d="M200 190 L282 322"/><path class="hp-inner" d="M200 190 L282 322"/></g>
+          <g class="hub-pipe" data-region="kilkenny"><path class="hp-outer" d="M200 190 L82 280"/><path class="hp-inner" d="M200 190 L82 280"/></g>
+          <g class="hub-pipe" data-region="carlow"><path class="hp-outer" d="M200 190 L86 110"/><path class="hp-inner" d="M200 190 L86 110"/></g>
+
+          <g class="hub-node" data-region="dublin" transform="translate(250 42)"><rect x="-66" y="-20" width="132" height="40" rx="20"/><text text-anchor="middle" dominant-baseline="central">South Dublin</text></g>
+          <g class="hub-node" data-region="wicklow" transform="translate(330 128)"><rect x="-52" y="-20" width="104" height="40" rx="20"/><text text-anchor="middle" dominant-baseline="central">Wicklow</text></g>
+          <g class="hub-node" data-region="wexford" transform="translate(282 322)"><rect x="-54" y="-20" width="108" height="40" rx="20"/><text text-anchor="middle" dominant-baseline="central">Wexford</text></g>
+          <g class="hub-node" data-region="kilkenny" transform="translate(82 280)"><rect x="-56" y="-20" width="112" height="40" rx="20"/><text text-anchor="middle" dominant-baseline="central">Kilkenny</text></g>
+          <g class="hub-node" data-region="carlow" transform="translate(86 110)"><rect x="-50" y="-20" width="100" height="40" rx="20"/><text text-anchor="middle" dominant-baseline="central">Carlow</text></g>
+
+          <g class="hub-home" transform="translate(200 190)">
+            <circle class="hub-pulse" r="34"/>
+            <rect x="-70" y="-22" width="140" height="44" rx="22"/>
+            <circle class="hub-dot" cx="-50" cy="0" r="5"/>
+            <text x="12" text-anchor="middle" dominant-baseline="central">Bunclody</text>
           </g>
-          <text class="venn-home" x="200" y="222" text-anchor="middle">Bunclody</text>
         </svg>
-        <figcaption>Bunclody sits where three counties meet, so a lot of towns are close by.</figcaption>
+        <figcaption>Based on Mill Road in Bunclody, covering all five areas.</figcaption>
       </figure>
     </div>
   </section>
@@ -961,7 +979,7 @@
         </div>
         <div class="faq-item" data-reveal>
           <h3><button class="faq-q" aria-expanded="false">Which areas do you cover?<span class="faq-icon" aria-hidden="true"></span></button></h3>
-          <div class="faq-a"><div><p>We're based on Mill Road in Bunclody and cover towns across North Wexford, Carlow and Wicklow, including Enniscorthy, Ferns, Camolin, Kiltealy, Clonegal, Tullow, Carnew and Shillelagh.<!-- TODO: confirm towns and travel radius --> Use the <a href="#areas">area checker</a> to look up your town, or ring and ask.</p></div></div>
+          <div class="faq-a"><div><p>We're based on Mill Road in Bunclody and cover Wexford, Kilkenny, Carlow, Wicklow and south Dublin. Use the <a href="#areas">area checker</a> to look up your town, or ring and ask.</p></div></div>
         </div>
         <div class="faq-item" data-reveal>
           <h3><button class="faq-q" aria-expanded="false">Do you work on new builds?<span class="faq-icon" aria-hidden="true"></span></button></h3>
@@ -969,7 +987,7 @@
         </div>
         <div class="faq-item" data-reveal>
           <h3><button class="faq-q" aria-expanded="false">Who runs JC Heating &amp; Plumbing?<span class="faq-icon" aria-hidden="true"></span></button></h3>
-          <div class="faq-a"><div><p>It's run by <span data-config="ownerName">James Cowman</span> from Mill Road in Bunclody, with <span class="todo" data-config="yearsTrading">[YEARS TRADING]</span><!-- TODO: confirm with client --> years in the trade.<!-- TODO: add a line about the team once confirmed --></p></div></div>
+          <div class="faq-a"><div><p>JC Heating &amp; Plumbing is <span data-config="businessName">James Cowman Heating &amp; Plumbing Limited</span>, run by <span data-config="ownerName">James Cowman</span> from Mill Road in Bunclody, with <span class="todo" data-config="yearsTrading">[YEARS TRADING]</span><!-- TODO: confirm with client --> years in the trade.<!-- TODO: add a line about the team once confirmed --></p></div></div>
         </div>
       </div>
     </div>
@@ -987,7 +1005,7 @@
     <div class="cta-overlay" aria-hidden="true"></div>
     <div class="container cta-inner">
       <h2 id="ctaHeading" data-reveal>Next time it gets cold, you shouldn't have to <em>think about your heating.</em></h2>
-      <p data-reveal>Free quotes across North Wexford, Carlow and Wicklow.</p>
+      <p data-reveal>Free quotes across Wexford, Kilkenny, Carlow, Wicklow and south Dublin.</p>
       <div class="inline-ctas" data-reveal>
         <a href="#contact" class="btn btn-primary">Get a Free Quote <svg class="ic"><use href="#i-arrow"/></svg></a>
         <a href="tel:+353861503653" data-config-href="tel" class="btn btn-line"><svg class="ic"><use href="#i-phone"/></svg>Call <span data-config="phoneDisplay">086 150 3653</span></a>
@@ -1111,7 +1129,7 @@
         </svg>
         <span class="logo-text"><b>JC Heating</b><small>&amp; Plumbing</small></span>
       </a>
-      <p>Plumbing and heating contractor based on Mill Road, Bunclody, Co. Wexford.</p>
+      <p><span data-config="businessName">James Cowman Heating &amp; Plumbing Limited</span>. Plumbing and heating contractor based on Mill Road, Bunclody, covering Wexford, Kilkenny, Carlow, Wicklow and south Dublin.</p>
       <a href="#" data-config-href="facebook" class="footer-social" target="_blank" rel="noopener">
         <svg class="ic"><use href="#i-facebook"/></svg>Find us on Facebook <span class="todo" data-config="facebookUrl">[FACEBOOK URL]</span><!-- TODO: confirm with client -->
       </a>
@@ -1143,7 +1161,7 @@
   </div>
 
   <div class="container footer-base">
-    <p>&copy; <span id="year">2026</span> <span data-config="businessName">J.C Heating and Plumbing</span>. All rights reserved.</p>
+    <p>&copy; <span id="year">2026</span> <span data-config="businessName">James Cowman Heating &amp; Plumbing Limited</span>. All rights reserved.</p>
     <a href="#top" class="back-to-top" id="backToTop">Back to top <svg class="ic"><use href="#i-up"/></svg></a>
   </div>
 </footer>
