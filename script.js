@@ -104,6 +104,8 @@ const CONFIG = {
     img.alt = fig.dataset.alt || "";
     img.loading = fig.dataset.eager ? "eager" : "lazy";
     img.decoding = "async";
+    // optional focal point, e.g. data-pos="62% 45%", so the crop keeps the subject at every screen size
+    if (fig.dataset.pos) img.style.objectPosition = fig.dataset.pos;
     img.addEventListener("load", () => {
       fig.classList.add("has-img");
       fig.dispatchEvent(new CustomEvent("ph:loaded", { bubbles: true }));
